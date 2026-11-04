@@ -186,8 +186,11 @@ onMounted(checkLogin);
             </div>
 
             <div class="book-detail-info">
-                <span class="book-category">
-                    {{ book.kategorie }}
+                <span
+                    v-if="book.original_category || book.kategorie"
+                    class="book-category"
+                >
+                    {{ book.original_category || book.kategorie }}
                 </span>
 
                 <h1>{{ book.name }}</h1>
@@ -200,12 +203,16 @@ onMounted(checkLogin);
                     {{ book.beschreibung }}
                 </p>
 
-                <RouterLink :to="{
-                    name: 'category',
-                    params: {
-                        category: book.kategorie
-                    }
-                }" class="btn-primary">
+                <RouterLink
+                    v-if="book.kategorie"
+                    :to="{
+                        name: 'category',
+                        params: {
+                            category: book.kategorie
+                        }
+                    }"
+                    class="btn-primary"
+                >
                     Mehr Bücher aus {{ book.kategorie }}
                 </RouterLink>
             </div>

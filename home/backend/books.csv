@@ -1,0 +1,101 @@
+﻿name;author;kategorie;beschreibung;img
+1984;George Orwell;Classic;A dystopian novel about surveillance, government control, and the loss of individual freedom.;1984.jpg
+Animal Farm;George Orwell;Classic;A political allegory about farm animals who rebel against their human owner.;animalFarm.jpg
+Jane Eyre;Charlotte Brontë;Classic;A young woman struggles for independence, love, and self-respect.;janeEyre.jpg
+Wuthering Heights;Emily Brontë;Classic;A tragic story of passionate love, revenge, and family conflict.;wutheringHeights.jpg
+Great Expectations;Charles Dickens;Classic;A young orphan discovers ambition, wealth, love, and the meaning of personal growth.;greatExpectations.jpg
+Oliver Twist;Charles Dickens;Classic;An orphan faces poverty and crime while searching for a better life.;oliverTwist.jpg
+The Brothers Karamazov;Fyodor Dostoevsky;Classic;A philosophical novel about family conflict, faith, morality, and responsibility.;brothersKaramazov.jpg
+Anna Karenina;Leo Tolstoy;Classic;A married woman faces social judgment after beginning a forbidden relationship.;annaKarenina.jpg
+War and Peace;Leo Tolstoy;Classic;A historical novel about Russian families during the Napoleonic Wars.;warAndPeace.jpg
+The Picture of Dorian Gray;Oscar Wilde;Classic;A young man remains beautiful while his portrait reflects his moral corruption.;dorianGray.jpg
+Frankenstein;Mary Shelley;Classic;A scientist creates a living being and faces the consequences of his ambition.;frankenstein.jpg
+Dracula;Bram Stoker;Classic;A Gothic horror novel about a vampire threatening Victorian society.;dracula.jpg
+The Trial;Franz Kafka;Classic;A man is arrested without knowing his crime and struggles against an absurd legal system.;theTrial.jpg
+The Stranger;Albert Camus;Classic;A detached man faces the consequences of his actions and society's expectations.;theStranger.jpg
+The Count of Monte Cristo;Alexandre Dumas;Classic;A wrongfully imprisoned man escapes and seeks revenge against his enemies.;monteCristo.jpg
+Les Misérables;Victor Hugo;Classic;A former prisoner searches for redemption in nineteenth-century France.;lesMiserables.jpg
+Moby-Dick;Herman Melville;Classic;A sea captain becomes obsessed with hunting a mysterious white whale.;mobyDick.jpg
+The Raven;Edgar Allan Poe;Poetry;A narrative poem about grief, loss, and a mysterious raven.;theRaven.jpg
+Ariel;Sylvia Plath;Poetry;A collection of intense poems exploring identity, emotion, and mortality.;ariel.jpg
+The Sun and Her Flowers;Rupi Kaur;Poetry;A poetry collection about love, loss, healing, and personal growth.;sunAndFlowers.jpg
+Milk and Honey;Rupi Kaur;Poetry;A collection of poems about relationships, trauma, survival, and healing.;milkAndHoney.jpg
+The Iliad;Homer;Poetry;An ancient epic poem about war, honor, anger, and the Trojan conflict.;iliad.jpg
+The Odyssey;Homer;Poetry;An epic poem following Odysseus on his difficult journey home.;odyssey.jpg
+The Divine Comedy;Dante Alighieri;Poetry;An epic poem describing a journey through Hell, Purgatory, and Paradise.;divineComedy.jpg
+Paradise Lost;John Milton;Poetry;An epic poem exploring rebellion, temptation, and the fall of humanity.;paradiseLost.jpg
+Sapiens;Yuval Noah Harari;History;A broad exploration of human history from early societies to modern civilization.;sapiens.jpg
+Guns, Germs, and Steel;Jared Diamond;History;An examination of geographical and environmental influences on human societies.;gunsGermsSteel.jpg
+The Crusades;Thomas Asbridge;History;A historical account of the medieval religious wars and their consequences.;crusades.jpg
+All Quiet on the Western Front;Erich Maria Remarque;Historical Fiction;A young German soldier experiences the horrors of the First World War.;allQuiet.jpg
+The Alice Network;Kate Quinn;Historical Fiction;Two women investigate wartime secrets connected to a female spy network.;aliceNetwork.jpg
+The Other Boleyn Girl;Philippa Gregory;Historical Fiction;A fictional account of the rivalry between two sisters at the Tudor court.;otherBoleynGirl.jpg
+The Adventures of Huckleberry Finn;Mark Twain;Coming-of-Age;A young boy travels along the Mississippi River and questions society's values.;huckleberryFinn.jpg
+The Outsiders;S. E. Hinton;Coming-of-Age;A teenage boy navigates friendship, class conflict, and violence.;outsiders.jpg
+Educated;Tara Westover;Nonfiction;A memoir about a woman who pursues education despite an isolated upbringing.;educated.jpg
+Becoming;Michelle Obama;Nonfiction;A memoir describing the author's childhood, career, family, and public life.;becoming.jpg
+The Great Gatsby;F. Scott Fitzgerald;Classic;A wealthy man pursues an idealized love amid the glamour and inequality of the Jazz Age.;greatGatsby.jpg
+The Scarlet Letter;Nathaniel Hawthorne;Classic;A woman confronts public shame and strict moral judgment in Puritan New England.;scarletLetter.jpg
+The Old Man and the Sea;Ernest Hemingway;Classic;An aging fisherman struggles against a giant marlin and his own limits.;oldManSea.jpg
+The Bell Jar;Sylvia Plath;Classic;A young woman confronts social expectations and psychological distress.;bellJar.jpg
+A Tale of Two Cities;Charles Dickens;Classic;Lives intertwine in London and Paris during the French Revolution.;taleTwoCities.jpg
+Sonnets from the Portuguese;Elizabeth Barrett Browning;Poetry;A sequence of love sonnets exploring devotion and emotional vulnerability.;sonnetsPortuguese.jpg
+The Colossus and Other Poems;Sylvia Plath;Poetry;A collection of poems exploring identity, nature, and complex emotions.;colossus.jpg
+The Histories;Herodotus;History;An ancient account of peoples, cultures, and conflicts surrounding the Greco-Persian Wars.;historiesHerodotus.jpg
+The Diary of a Young Girl;Anne Frank;History;A young Jewish girl records her experiences while hiding during the Nazi occupation.;diaryYoungGirl.jpg
+Wolf Hall;Hilary Mantel;Historical Fiction;Thomas Cromwell rises through the dangerous politics of Henry VIII’s court.;wolfHall.jpg
+The Name of the Rose;Umberto Eco;Historical Fiction;A medieval monk investigates mysterious deaths in an Italian abbey.;nameOfRose.jpg
+Anne of Green Gables;L. M. Montgomery;Coming-of-Age;An imaginative orphan finds belonging and grows up on Prince Edward Island.;anneGreenGables.jpg
+The Secret Garden;Frances Hodgson Burnett;Coming-of-Age;A lonely girl discovers friendship and renewal through a neglected garden.;secretGarden.jpg
+Into the Wild;Jon Krakauer;Nonfiction;An investigation into the journey and death of a young traveler in Alaska.;intoTheWild.jpg
+The Sixth Extinction;Elizabeth Kolbert;Nonfiction;An examination of biodiversity loss and the human impact on species extinction.;sixthExtinction.jpg
+The Master and Margarita;Mikhail Bulgakov;Classic;A satirical novel blending supernatural events with life in Soviet Moscow.;masterMargarita.jpg
+The Grapes of Wrath;John Steinbeck;Classic;A family travels west during the Great Depression in search of work and dignity.;grapesWrath.jpg
+Middlemarch;George Eliot;Classic;A novel exploring ambition, marriage, and social change in an English town.;middlemarch.jpg
+The House on Mango Street;Sandra Cisneros;Coming-of-Age;A young Latina girl reflects on identity, family, and her neighborhood.;houseMangoStreet.jpg
+The Absolutely True Diary of a Part-Time Indian;Sherman Alexie;Coming-of-Age;A teenager navigates identity and belonging between two school communities.;partTimeIndian.jpg
+The Curious Incident of the Dog in the Night-Time;Mark Haddon;Coming-of-Age;A teenage narrator investigates a mystery and discovers difficult family truths.;curiousIncident.jpg
+The Giver;Lois Lowry;Coming-of-Age;A boy discovers hidden truths about his seemingly perfect community.;theGiver.jpg
+The Hate U Give;Angie Thomas;Coming-of-Age;A teenager finds her voice after witnessing a police shooting.;hateUGive.jpg
+Looking for Alaska;John Green;Coming-of-Age;A student experiences friendship, first love, and grief at boarding school.;lookingAlaska.jpg
+The Fault in Our Stars;John Green;Coming-of-Age;Two teenagers form a meaningful relationship while living with serious illness.;faultStars.jpg
+I Capture the Castle;Dodie Smith;Coming-of-Age;A young woman records her family life and emotional growth in a diary.;captureCastle.jpg
+The Secret Life of Bees;Sue Monk Kidd;Coming-of-Age;A girl searches for family and belonging in the American South.;secretLifeBees.jpg
+The Joy Luck Club;Amy Tan;Coming-of-Age;Mothers and daughters explore cultural identity and generational differences.;joyLuckClub.jpg
+A Separate Peace;John Knowles;Coming-of-Age;Two school friends confront jealousy and loss during wartime.;separatePeace.jpg
+The Shadow of the Wind;Carlos Ruiz Zafón;Historical Fiction;A young reader uncovers a literary mystery in postwar Barcelona.;shadowWind.jpg
+The Kite Runner;Khaled Hosseini;Historical Fiction;A story of friendship, betrayal, and redemption across decades in Afghanistan.;kiteRunner.jpg
+A Thousand Splendid Suns;Khaled Hosseini;Historical Fiction;Two Afghan women build a bond amid decades of political upheaval.;thousandSuns.jpg
+The Paris Library;Janet Skeslien Charles;Historical Fiction;Librarians resist occupation and protect books in wartime Paris.;parisLibrary.jpg
+The Tattooist of Auschwitz;Heather Morris;Historical Fiction;A historical novel about survival and love during the Holocaust.;tattooistAuschwitz.jpg
+The Miniaturist;Jessie Burton;Historical Fiction;A young bride discovers secrets in seventeenth-century Amsterdam.;miniaturist.jpg
+The Red Tent;Anita Diamant;Historical Fiction;A reimagining of a biblical woman and her family in ancient times.;redTent.jpg
+The Guernsey Literary and Potato Peel Pie Society;Mary Ann Shaffer and Annie Barrows;Historical Fiction;Letters reveal friendship and resilience after the occupation of Guernsey.;guernseySociety.jpg
+The Tea Girl of Hummingbird Lane;Lisa See;Historical Fiction;A mother and daughter navigate tradition and change across generations.;teaGirl.jpg
+Pachinko;Min Jin Lee;Historical Fiction;A Korean family faces migration and discrimination across generations in Japan.;pachinko.jpg
+The Rise and Fall of the Third Reich;William L. Shirer;History;A history of Nazi Germany and its political and military development.;riseFallThirdReich.jpg
+"A People""s History of the United States";Howard Zinn;History;An account of American history emphasizing marginalized perspectives.;peoplesHistoryUS.jpg
+The Wright Brothers;David McCullough;History;A history of the brothers who pioneered powered flight.;wrightBrothers.jpg
+The Warmth of Other Suns;Isabel Wilkerson;History;A history of the Great Migration told through individual lives.;warmthOtherSuns.jpg
+The Emperor of All Maladies;Siddhartha Mukherjee;History;A historical account of cancer research and treatment.;emperorMaladies.jpg
+The Great Influenza;John M. Barry;History;An examination of the 1918 influenza pandemic and its social impact.;greatInfluenza.jpg
+The Romanovs;Simon Sebag Montefiore;History;A history of the dynasty that ruled Russia for three centuries.;romanovs.jpg
+The Anarchy;William Dalrymple;History;A history of the East India Company and its expansion in India.;theAnarchy.jpg
+King Leopold's Ghost;Adam Hochschild;History;A history of colonial exploitation in the Congo Free State.;kingLeopoldsGhost.jpg
+The Splendid and the Vile;Erik Larson;History;An account of Churchill and Britain during the Blitz.;splendidVile.jpg
+Atomic Habits;James Clear;Nonfiction;A practical guide to building habits through small behavioral changes.;atomicHabits.jpg
+Deep Work;Cal Newport;Nonfiction;An argument for focused work in a distracted world.;deepWork.jpg
+Quiet;Susan Cain;Nonfiction;An exploration of introversion and its value in modern society.;quiet.jpg
+The Body Keeps the Score;Bessel van der Kolk;Nonfiction;An overview of trauma and its effects on mind and body.;bodyKeepsScore.jpg
+Factfulness;Hans Rosling;Nonfiction;A data-driven guide to understanding global trends and common misconceptions.;factfulness.jpg
+The Art of Thinking Clearly;Rolf Dobelli;Nonfiction;An introduction to common errors in human judgment.;artThinkingClearly.jpg
+The Design of Everyday Things;Don Norman;Nonfiction;An explanation of how human-centered design improves everyday objects.;designEverydayThings.jpg
+The Selfish Gene;Richard Dawkins;Nonfiction;An evolutionary perspective on genes and natural selection.;selfishGene.jpg
+The Gene: An Intimate History;Siddhartha Mukherjee;Nonfiction;A history of genetics and the science of heredity.;geneHistory.jpg
+Born a Crime;Trevor Noah;Nonfiction;A memoir of childhood and identity in apartheid-era South Africa.;bornCrime.jpg
+When Breath Becomes Air;Paul Kalanithi;Nonfiction;A physician reflects on mortality and the meaning of life.;whenBreathAir.jpg
+Divan of Hafez;Hafez;Poetry;A collection of Persian ghazals exploring love, spirituality, and human experience.;divanHafez.jpg
+Shahnameh;Ferdowsi;Poetry;A monumental Persian epic recounting legendary kings, heroes, and Iranian history.;shahnameh.jpg
+Bustan;Saadi;Poetry;A Persian verse work presenting ethical stories about justice, love, and humility.;bustanSaadi.jpg
+The Conference of the Birds;Attar of Nishapur;Poetry;A Persian allegorical poem about birds seeking their spiritual king.;conferenceBirds.jpg
+Rubaiyat of Baba Tahir;Baba Tahir;Poetry;A collection of Persian quatrains expressing longing, devotion, and mystical love.;rubaiyatBabaTahir.jpg
