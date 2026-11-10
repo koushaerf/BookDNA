@@ -21,6 +21,17 @@ app.use(session({
     }
 }));
 
+//hier ist um checken ob user eingeloggt ist, wenn nicht dann error 401
+function requireLogin(req, res, next) {
+    if (!req.session.userId) {
+        return res.status(401).json({
+            error: "Bitte zuerst anmelden"
+        });
+    }
+
+    next();
+}
+
 const db = new sqlite3.Database(
     path.join(__dirname, "database.db"),
     function (err) {
@@ -438,6 +449,368 @@ app.post("/books/id/:id/reviews", function (req, res) {
         });
     });
 });
+
+
+// Route zum Abrufen der Bücher eines Benutzers
+
+app.get("/dashboard/books", requireLogin, function (req, res) {
+    const userId = req.session.userId;
+
+    const sql = `
+        SELECT
+            user_books.id,
+            user_books.book_id,
+            user_books.status,
+            user_books.read_at,
+            books.name,
+            books.author,
+            books.kategorie,
+            books.img
+        FROM user_books
+        INNER JOIN books
+            ON user_books.book_id = books.id
+        WHERE user_books.user_id = ?
+    `;
+
+    db.all(sql, [userId], function (err, rows) {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            });
+        }
+
+        res.json(rows);
+    });
+});
+
+
+
+// Route zum Hinzufügen eines Buches zu den Büchern eines Benutzers
+app.post("/dashboard/books", requireLogin, function (req, res) {
+    const userId = req.session.userId;
+    const { book_id, status, read_at } = req.body; // read_at ist optional und wird nur verwendet, wenn der Status "gelesen" ist
+
+    if (!Number.isInteger(book_id) || book_id <= 0 ||
+        !["planned", "read"].includes(status)) {
+        return res.status(400).json({
+            error: "Ungültiges Buch oder Status."
+        });
+    }
+
+    const readAt = status === "read" ? read_at : null; // nur das Lesedatum speichern, wenn der Status "gelesen" ist
+
+    db.get(
+        "SELECT id FROM books WHERE id = ?",
+        [book_id],
+        function (err, book) {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+
+            if (!book) {
+                return res.status(404).json({
+                    error: "Buch nicht gefunden."
+                });
+            }
+
+            db.get(
+                "SELECT id FROM user_books WHERE user_id = ? AND book_id = ?",
+                [userId, book_id],
+                function (err, existing) {
+                    if (err) {
+                        return res.status(500).json({ error: err.message });
+                    }
+
+                    if (existing) {
+                        return res.status(409).json({
+                            error: "Dieses Buch ist bereits in deiner Liste."
+                        });
+                    }
+
+                    db.run(
+                        `INSERT INTO user_books
+                         (user_id, book_id, status, read_at)
+                         VALUES (?, ?, ?, ?)`,
+                        [userId, book_id, status, readAt],
+                        function (err) {
+                            if (err) {
+                                return res.status(500).json({
+                                    error: err.message
+                                });
+                            }
+
+                            res.status(201).json({
+                                message: "Buch erfolgreich hinzugefügt.",
+                                id: this.lastID
+                            });
+                        }
+                    );
+                }
+            );
+        }
+    );
+});
+
+// Route zum Abrufen von Statistiken für das Dashboard
+app.get("/dashboard/stats", requireLogin, function (req, res) {
+    const userId = req.session.userId;
+
+    const sql = `
+        SELECT
+            (SELECT COUNT(*)
+             FROM user_books
+             WHERE user_id = ? AND status = 'read') AS booksRead,
+
+            (SELECT COUNT(*)
+             FROM user_books
+             WHERE user_id = ? AND status = 'planned') AS booksPlanned,
+
+            (SELECT COUNT(*)
+             FROM quotes
+             WHERE user_id = ?) AS quotesCount
+    `;
+
+    db.get(sql, [userId, userId, userId], function (err, row) {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            });
+        }
+
+        res.json(row);
+    });
+});
+
+
+
+// Route zum Abrufen der Challenge-Statistiken für das Dashboard
+app.get("/dashboard/challenge", requireLogin, function (req, res) {
+    const userId = req.session.userId;
+    const year = new Date().getFullYear();// Aktuelles Jahr
+    // SQL-Abfrage, um die Anzahl der gelesenen Bücher und das Ziel für die Lesechallenge abzurufen
+    const sql = `
+        SELECT
+            (SELECT COUNT(*)
+            FROM user_books
+            WHERE user_id = ?
+            AND status = 'read'
+            AND substr(read_at, 1, 4) = ?) AS booksRead,
+            COALESCE(
+                (SELECT goal
+                FROM reading_challenges
+                WHERE user_id = ? AND year = ?),
+                20
+            ) AS goal
+    `;
+    // Ausführen der SQL-Abfrage
+    db.get(sql, [userId, String(year),userId, year], function (err, row) {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            });
+        }
+        // Rückgabe der Challenge-Statistiken als JSON
+        res.json({
+            year: year,
+            booksRead: row.booksRead,
+            goal: row.goal // Rückgabe des Ziels für die Lesechallenge
+        });
+    });
+});
+
+// Leseziel speichern
+// Route zum Speichern des Leseziels für die Challenge
+app.put("/dashboard/challenge", requireLogin, function (req, res) {
+    const userId = req.session.userId;
+    const year = new Date().getFullYear();
+    const goal = req.body.goal;
+
+    if (!Number.isInteger(goal) || goal < 1) {
+    return res.status(400).json({
+        error: "Ungültiges Leseziel."
+    });
+    }
+    // SQL-Abfrage, um das Leseziel in der Datenbank zu speichern oder zu aktualisieren
+    const sql = `
+        INSERT INTO reading_challenges (user_id, year, goal)
+        VALUES (?, ?, ?)
+        ON CONFLICT(user_id, year)
+        DO UPDATE SET goal = excluded.goal
+    `;
+
+    db.run(sql, [userId, year, goal], function (err) {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            });
+        }
+
+        res.json({ year: year, goal: goal });
+    });
+});
+
+
+
+
+// Zitat speichern
+app.post("/dashboard/quotes", requireLogin, function (req, res) {
+    const userId = req.session.userId;
+    const { book_id, quote } = req.body;
+
+    if (!Number.isInteger(book_id) || !quote || !quote.trim()) {
+        return res.status(400).json({
+            error: "Bitte Buch und Zitat eingeben."
+        });
+    }
+
+    const sql = `
+        INSERT INTO quotes (book_id, quote, user_id)
+        VALUES (?, ?, ?)
+    `;
+
+    db.run(sql, [book_id, quote.trim(), userId], function (err) {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            });
+        }
+
+        res.status(201).json({
+            message: "Zitat gespeichert."
+        });
+    });
+});
+
+
+
+// Gespeicherte Zitate laden
+app.get("/dashboard/quotes", requireLogin, function (req, res) {
+    const userId = req.session.userId;
+
+    const sql = `
+        SELECT
+            quotes.id,
+            quotes.quote,
+            books.name,
+            books.author
+        FROM quotes
+        INNER JOIN books ON quotes.book_id = books.id
+        WHERE quotes.user_id = ?
+        ORDER BY quotes.id DESC
+    `;
+
+    db.all(sql, [userId], function (err, rows) {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            });
+        }
+
+        res.json(rows);
+    });
+});
+
+
+
+// Route zum Löschen eines gespeicherten Zitats
+app.delete("/dashboard/quotes/:id", requireLogin, function (req, res) {
+    const userId = req.session.userId;
+    const quoteId = Number(req.params.id);
+    // Überprüfen, ob die quoteId eine gültige positive Zahl ist
+    if (!Number.isInteger(quoteId) || quoteId <= 0) {
+        return res.status(400).json({
+            error: "Ungültige Zitat-ID."
+        });
+    }
+    // SQL-Abfrage zum Löschen des Zitats, das dem Benutzer gehört
+    const sql = `
+        DELETE FROM quotes
+        WHERE id = ? AND user_id = ?
+    `;
+    // Ausführen der SQL-Abfrage
+    db.run(sql, [quoteId, userId], function (err) {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            });
+        }
+        // Überprüfen, ob ein Zitat gelöscht wurde
+        if (this.changes === 0) {
+            return res.status(404).json({
+                error: "Zitat nicht gefunden."
+            });
+        }
+
+        res.json({
+            message: "Zitat erfolgreich gelöscht."
+        });
+    });
+});
+
+
+// Lesegeschmack des Benutzers laden
+app.get("/dashboard/taste", requireLogin, function (req, res) {
+    const userId = req.session.userId;
+    // SQL-Abfrage, um die Anzahl der Bücher pro Kategorie für den Benutzer zu zählen
+    const sql = `
+        SELECT
+            books.kategorie AS category,
+            COUNT(*) AS count
+        FROM user_books
+        INNER JOIN books ON user_books.book_id = books.id
+        WHERE user_books.user_id = ?
+        AND books.kategorie IS NOT NULL
+        AND TRIM(books.kategorie) != ''
+        GROUP BY books.kategorie
+        ORDER BY count DESC
+    `;
+    // Ausführen der SQL-Abfrage
+    db.all(sql, [userId], function (err, rows) {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            });
+        }
+
+        res.json(rows);
+    });
+});
+
+
+
+// Geplantes Buch als gelesen markieren
+app.put("/dashboard/books/:id/read", requireLogin, function (req, res) {
+    const userId = req.session.userId;
+    const bookId = Number(req.params.id);
+
+    if (!Number.isInteger(bookId) || bookId <= 0) {
+        return res.status(400).json({ error: "Ungültige Buch-ID." });
+    }
+
+    const readDate = new Date().toISOString().slice(0, 10);
+
+    const sql = `
+        UPDATE user_books
+        SET status = 'read', read_at = ?
+        WHERE id = ? AND user_id = ? AND status = 'planned'
+    `;
+
+    db.run(sql, [readDate, bookId, userId], function (err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+
+        if (this.changes === 0) {
+            return res.status(404).json({
+                error: "Geplantes Buch nicht gefunden."
+            });
+        }
+
+        res.json({ message: "Buch als gelesen markiert." });
+    });
+});
+
+
 
 
 // Server starten
