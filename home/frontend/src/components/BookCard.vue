@@ -23,7 +23,7 @@
             <p v-if="book.kategorie">
                 {{ book.kategorie }}
             </p>
-            <p v-if="book.beschreibung">
+            <p v-if="book.beschreibung" class="book-description">
                 {{ book.beschreibung }}
             </p>
         </div>
@@ -44,3 +44,12 @@ const imageUrl = computed(() => {
     return `/images/${props.book.img}`;
 });
 </script>
+<style scoped>
+.book-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+</style>

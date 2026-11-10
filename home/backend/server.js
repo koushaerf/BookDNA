@@ -106,7 +106,28 @@ app.get("/books", function (req, res) {
 
 app.get("/books/:category", function (req, res) {
     const category = req.params.category;
+        if (category === "Bücher im Trend") {
+        const sql = `
+           SELECT books.*
+           FROM books
+           INNER JOIN monthly_trending
+                ON books.id = monthly_trending.book_id
+           GROUP BY books.id
+           ORDER BY MAX(monthly_trending.month) DESC,
+                    MIN(monthly_trending.rank) ASC`;
 
+        db.all(sql, [], function (err, rows) {
+            if (err) {
+                return res.status(500).json({
+                    error: err.message
+                });
+            }
+
+            res.json(rows);
+        });
+
+        return;
+    }
     db.all(
         `
             SELECT *
@@ -172,9 +193,17 @@ app.get("/categories", function (req, res) {
             COUNT(*) AS book_count
         FROM books
         WHERE kategorie IS NOT NULL
-          AND TRIM(kategorie) != ''
+            AND TRIM(kategorie) != ''
         GROUP BY kategorie
-        ORDER BY kategorie
+
+        UNION ALL
+
+        SELECT
+            'Bücher im Trend' AS name,
+            COUNT(DISTINCT book_id) AS book_count
+        FROM monthly_trending
+
+        ORDER BY name
     `;
 
     db.all(sql, [], function (err, rows) {
@@ -194,30 +223,31 @@ app.get("/categories", function (req, res) {
 
 
 
-app.get("/celebrity-picks", function (req, res) {
+// Bücher im Trend - aktuelle und vergangene Monate
+app.get("/monthly-trending", function (req, res) {
     const sql = `
         SELECT
-            celebrity_picks.id AS pick_id,
-            celebrity_picks.celebrity_name AS celebrity,
-            celebrity_picks.celebrity_img,
+            monthly_trending.month,
+            monthly_trending.rank,
             books.id AS book_id,
             books.name,
             books.author,
             books.kategorie,
+            books.original_category,
             books.beschreibung,
             books.img AS book_img
-        FROM celebrity_picks
+        FROM monthly_trending
         INNER JOIN books
-            ON celebrity_picks.book_id = books.id
-        ORDER BY celebrity_picks.id
+            ON monthly_trending.book_id = books.id
+        ORDER BY monthly_trending.month DESC,
+                 monthly_trending.rank ASC
     `;
 
     db.all(sql, [], function (err, rows) {
         if (err) {
-            res.status(500).json({
+            return res.status(500).json({
                 error: err.message
             });
-            return;
         }
 
         res.json(rows);
@@ -398,16 +428,27 @@ app.post("/logout", function (req, res) {
 });
 
 
+
+
+
+
 // Bewertungen laden
 app.get("/books/id/:id/reviews", function (req, res) {
     const bookId = req.params.id;
 
     const sql = `
-        SELECT id, rating, comment, created_at
-        FROM reviews
-        WHERE book_id = ?
-        ORDER BY id DESC
-    `;
+    SELECT
+        reviews.id,
+        reviews.rating,
+        reviews.comment,
+        reviews.created_at,
+        users.name AS userName
+    FROM reviews
+    LEFT JOIN users
+        ON reviews.user_id = users.id
+    WHERE reviews.book_id = ?
+    ORDER BY reviews.id DESC
+`;
 
     db.all(sql, [bookId], function (err, reviews) {
         if (err) {
@@ -427,8 +468,20 @@ app.post("/books/id/:id/reviews", function (req, res) {
     const bookId = req.params.id;
     const rating = req.body.rating;
     const comment = req.body.comment;
-    const userId = 1;
+    const userId = req.session.userId;
 
+
+
+    if (!userId) {
+        return res.status(401).json({
+            error: "Bitte melde dich an, um eine Bewertung abzugeben."
+        });
+    }
+
+
+
+
+    //Wegen SQL injection 
     const sql = `
     INSERT INTO reviews (book_id, user_id, rating, comment)
     VALUES (?, ?, ?, ?)
@@ -438,10 +491,10 @@ app.post("/books/id/:id/reviews", function (req, res) {
         if (err) {
             console.error(err.message);
 
-            res.status(500).json({
+            return res.status(500).json({
                 message: "Die Bewertung konnte nicht gespeichert werden."
             });
-            return;
+            
         }
 
         res.status(201).json({
