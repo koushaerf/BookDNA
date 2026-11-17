@@ -1,16 +1,17 @@
 <script setup>
 import { onMounted, ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
+import DnaRating from "@/components/DnaRating.vue";
 
 import Navbar from "../components/Navbar.vue";
 
 const route = useRoute();
 
 const error = ref("");
-const rating = ref(0);
+const rating = ref(0);//sternbewertung
 const reviewText = ref("");
-const reviews = ref([]);
-const currentUser = ref(null);
+const reviews = ref([]);//die Bewertungen von backend
+const currentUser = ref(null);// BenutzerInfo
 const reviewsLoading = ref(false);
 const reviewsError = ref("");
 
@@ -27,7 +28,7 @@ const averageRating = computed(() => {
 
     const average = total / reviews.value.length;
 
-    return average.toFixed(1);
+    return average.toFixed(1);// auf eine Nachkommastelle runden
 });
 
 
@@ -62,7 +63,7 @@ async function loadBook() {
 async function checkLogin() {
     try {
         const response = await fetch("/api/me", {
-            credentials: "include"
+            credentials: "include" // Cookies werden mitgesendet
         });
 
         if (!response.ok) {
@@ -149,7 +150,7 @@ async function saveReview() {
 
 
 
-//Sterne werden null 
+//Sterne werden null
 watch(
     () => route.params.id,
     function () {
@@ -165,9 +166,10 @@ watch(
 );
 
 
-onMounted(checkLogin);
+onMounted(checkLogin); //wenn die Seite geladen wird, checken ob angemeldet ist
 
 </script>
+
 <template>
     <Navbar @auth-changed="checkLogin" />
 
@@ -186,10 +188,7 @@ onMounted(checkLogin);
             </div>
 
             <div class="book-detail-info">
-                <span
-                    v-if="book.original_category || book.kategorie"
-                    class="book-category"
-                >
+                <span v-if="book.original_category || book.kategorie" class="book-category">
                     {{ book.original_category || book.kategorie }}
                 </span>
 
@@ -203,16 +202,12 @@ onMounted(checkLogin);
                     {{ book.beschreibung }}
                 </p>
 
-                <RouterLink
-                    v-if="book.kategorie"
-                    :to="{
-                        name: 'category',
-                        params: {
-                            category: book.kategorie
-                        }
-                    }"
-                    class="btn-primary"
-                >
+                <RouterLink v-if="book.kategorie" :to="{
+                    name: 'category',
+                    params: {
+                        category: book.kategorie
+                    }
+                }" class="btn-primary">
                     Mehr Bücher aus {{ book.kategorie }}
                 </RouterLink>
             </div>
@@ -226,11 +221,7 @@ onMounted(checkLogin);
                 <!--ist angemeldet?-->
                 <div v-if="currentUser" class="review-form">
 
-
-                    <button v-for="star in 5" :key="star" type="button" class="star" :class="{ filled: star <= rating }"
-                        @click="rating = star">
-                        ★
-                    </button>
+                    <DnaRating v-model="rating" />
 
                     <!-- Bewertung UIX/CMBox-->
 
@@ -244,7 +235,7 @@ onMounted(checkLogin);
 
                     <!-- Bewertung ergebnis/Sterne -->
 
-                    <p>Deine Bewertung: {{ rating }} Sterne</p>
+                    <p>Deine Bewertung: {{ rating }} </p>
 
 
 
@@ -285,7 +276,7 @@ onMounted(checkLogin);
                             {{ averageRating }}
                         </span>
 
-                        <span class="rating-star">★</span>
+                        <DnaRating :model-value="Math.round(Number(averageRating))" readonly />
 
                         <span class="rating-count">
                             {{ reviews.length }} Bewertungen
@@ -299,13 +290,13 @@ onMounted(checkLogin);
                         </p>
 
                         <div class="review-stars">
-                            <span v-for="star in 5" :key="star" :class="{ filled: star <= review.rating }">
-                                ★
-                            </span>
+
+                            <DnaRating :model-value="Number(review.rating)" readonly />
 
                             <span class="review-score">
                                 {{ review.rating }}/5
                             </span>
+
                         </div>
 
                         <p v-if="review.comment" class="review-comment">

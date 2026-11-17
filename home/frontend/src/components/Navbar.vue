@@ -14,7 +14,7 @@
 
       <RouterLink to="/quiz">Quiz</RouterLink>
 
-      <a href="/#celebrity">Promi-Empfehlungen</a>
+      <a href="/#monthly-trending">Community Favorites</a>
       <a href="/#about">Über uns</a>
     </nav>
 

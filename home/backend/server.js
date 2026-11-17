@@ -106,16 +106,19 @@ app.get("/books", function (req, res) {
 
 app.get("/books/:category", function (req, res) {
     const category = req.params.category;
-        if (category === "Bücher im Trend") {
+        if (category === "Community Favorites") {
         const sql = `
-           SELECT books.*
-           FROM books
-           INNER JOIN monthly_trending
-                ON books.id = monthly_trending.book_id
-           GROUP BY books.id
-           ORDER BY MAX(monthly_trending.month) DESC,
-                    MIN(monthly_trending.rank) ASC`;
-
+    SELECT
+        books.*,
+        ROUND(AVG(reviews.rating), 1) AS average_rating,
+        COUNT(reviews.id) AS review_count
+    FROM books
+    INNER JOIN reviews
+        ON books.id = reviews.book_id
+    GROUP BY books.id
+    ORDER BY AVG(reviews.rating) DESC,
+             COUNT(reviews.id) DESC
+`;
         db.all(sql, [], function (err, rows) {
             if (err) {
                 return res.status(500).json({
@@ -199,9 +202,9 @@ app.get("/categories", function (req, res) {
         UNION ALL
 
         SELECT
-            'Bücher im Trend' AS name,
-            COUNT(DISTINCT book_id) AS book_count
-        FROM monthly_trending
+    'Community Favorites' AS name,
+    COUNT(DISTINCT book_id) AS book_count
+FROM reviews
 
         ORDER BY name
     `;
@@ -224,26 +227,30 @@ app.get("/categories", function (req, res) {
 
 
 // Bücher im Trend - aktuelle und vergangene Monate
+
 app.get("/monthly-trending", function (req, res) {
+
     const sql = `
         SELECT
-            monthly_trending.month,
-            monthly_trending.rank,
             books.id AS book_id,
             books.name,
             books.author,
             books.kategorie,
             books.original_category,
-            books.beschreibung,
-            books.img AS book_img
-        FROM monthly_trending
+            books.img AS book_img,
+            ROUND(AVG(reviews.rating), 1) AS average_rating,
+            COUNT(reviews.id) AS review_count
+        FROM reviews
         INNER JOIN books
-            ON monthly_trending.book_id = books.id
-        ORDER BY monthly_trending.month DESC,
-                 monthly_trending.rank ASC
+            ON reviews.book_id = books.id
+        GROUP BY books.id
+        ORDER BY AVG(reviews.rating) DESC,
+                 COUNT(reviews.id) DESC
+        LIMIT 3
     `;
 
     db.all(sql, [], function (err, rows) {
+
         if (err) {
             return res.status(500).json({
                 error: err.message
@@ -251,8 +258,11 @@ app.get("/monthly-trending", function (req, res) {
         }
 
         res.json(rows);
+
     });
+
 });
+
 app.post("/register", async function (req, res) {
     const { name, email, password } = req.body;
 

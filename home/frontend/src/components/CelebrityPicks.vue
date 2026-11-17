@@ -1,23 +1,9 @@
 <script setup>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref } from "vue";
 
 const monthlyBooks = ref([]);
 const loading = ref(false);
 const error = ref("");
-
-const currentMonth = computed(() => {
-    if (monthlyBooks.value.length === 0) {
-        return "";
-    }
-
-    return monthlyBooks.value[0].month;
-});
-
-const currentBooks = computed(() => {
-    return monthlyBooks.value.filter(
-        book => book.month === currentMonth.value
-    );
-});
 
 async function loadMonthlyBooks() {
     loading.value = true;
@@ -28,11 +14,12 @@ async function loadMonthlyBooks() {
 
         if (!response.ok) {
             throw new Error(
-                "Die Bücher des Monats konnten nicht geladen werden."
+                "Die Bücher konnten nicht geladen werden."
             );
         }
 
         monthlyBooks.value = await response.json();
+
     } catch (err) {
         error.value = err.message;
     } finally {
@@ -42,17 +29,19 @@ async function loadMonthlyBooks() {
 
 onMounted(loadMonthlyBooks);
 </script>
+
 <template>
     <section id="monthly-trending" class="celebrity-section">
+
         <div class="section-header">
             <p class="label">
-                BÜCHER IM TREND
+                COMMUNITY FAVORITES
             </p>
 
-            <h2>Top 3 Bücher des Monats</h2>
+            <h2>Top 3 Bücher unserer Community</h2>
 
             <p class="section-text">
-                Entdecke die aktuell beliebtesten Bücher auf Open Library.
+                Die beliebtesten Bücher, bewertet von unseren Nutzern.
             </p>
         </div>
 
@@ -64,47 +53,42 @@ onMounted(loadMonthlyBooks);
             {{ error }}
         </p>
 
-        <p v-else-if="currentBooks.length === 0">
-            Keine Bücher gefunden.
+        <p v-else-if="monthlyBooks.length === 0">
+            Noch keine Bewertungen vorhanden.
         </p>
 
         <div v-else class="celebrity-grid">
-            <article
-                v-for="book in currentBooks"
-                :key="book.book_id"
-                class="celebrity-card"
-            >
-                <img
-                    class="celebrity-image"
-                    :src="`/images/${book.book_img}`"
-                    :alt="book.name"
-                />
+
+            <article v-for="(book, index) in monthlyBooks" :key="book.book_id" class="celebrity-card">
+                <img class="celebrity-image" :src="`/images/${book.book_img}`" :alt="book.name" />
 
                 <div class="celebrity-book-info">
+
                     <p class="celebrity-name">
-                        Platz {{ book.rank }}
+                        Platz {{ index + 1 }}
                     </p>
 
-                    <RouterLink
-                        :to="{
-                            name: 'book-detail',
-                            params: {
-                                id: book.book_id
-                            }
-                        }"
-                        class="celebrity-book-link"
-                    >
+                    <RouterLink :to="{
+                        name: 'book-detail',
+                        params: {
+                            id: book.book_id
+                        }
+                    }" class="celebrity-book-link">
                         {{ book.name }}
                     </RouterLink>
 
                     <p class="book-author">
                         von {{ book.author }}
                     </p>
-                    <p v-if="book.original_category" class="book-category">
-                        Kategorie: {{ book.original_category }}
+
+                    <p class="book-rating">
+                        {{ book.average_rating }} / 5
+                        ({{ book.review_count }} Bewertungen)
                     </p>
+
                 </div>
             </article>
+
         </div>
     </section>
 </template>
