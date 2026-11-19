@@ -1,0 +1,286 @@
+{
+  "1": {
+    "filename": "fall.jpg",
+    "coverId": 1014222
+  },
+  "2": {
+    "filename": "whiteNights.jpg",
+    "coverId": 1010814
+  },
+  "8": {
+    "filename": "catcherInTheRye.jpg",
+    "coverId": 1011099
+  },
+  "10": {
+    "filename": "metamorphosis.jpg",
+    "coverId": 1022838
+  },
+  "11": {
+    "filename": "crimeAndPunishment.jpg",
+    "coverId": 15210537
+  },
+  "12": {
+    "filename": "prideAndPrejudice.jpg",
+    "coverId": 14568556
+  },
+  "15": {
+    "filename": "prophet.jpg",
+    "coverId": 14625881
+  },
+  "16": {
+    "filename": "spqr.jpg",
+    "coverId": 10138687
+  },
+  "19": {
+    "filename": "bookThief.jpg",
+    "coverId": 15267321
+  },
+  "22": {
+    "filename": "pillarsOfTheEarth.jpg",
+    "coverId": 1000165
+  },
+  "23": {
+    "filename": "littleWomen.jpg",
+    "coverId": 2243416
+  },
+  "24": {
+    "filename": "perksOfBeingAWallflower.jpg",
+    "coverId": 1027895
+  },
+  "26": {
+    "filename": "toKillAMockingbird.jpg",
+    "coverId": 14615774
+  },
+  "27": {
+    "filename": "briefHistoryOfTime.jpg",
+    "coverId": 10208774
+  },
+  "28": {
+    "filename": "thinkingFastAndSlow.jpg",
+    "coverId": 8717338
+  },
+  "30": {
+    "filename": "mansSearchForMeaning.jpg",
+    "coverId": 9426412
+  },
+  "32": {
+    "filename": "animalFarm.jpg",
+    "coverId": 15114751
+  },
+  "37": {
+    "filename": "brothersKaramazov.jpg",
+    "coverId": 1003142
+  },
+  "38": {
+    "filename": "annaKarenina.jpg",
+    "coverId": 15246931
+  },
+  "41": {
+    "filename": "frankenstein.jpg",
+    "coverId": 14534302
+  },
+  "44": {
+    "filename": "theStranger.jpg",
+    "coverId": 15273688
+  },
+  "45": {
+    "filename": "monteCristo.jpg",
+    "coverId": 14566144
+  },
+  "46": {
+    "filename": "lesMiserables.jpg",
+    "coverId": 10720183
+  },
+  "47": {
+    "filename": "mobyDick.jpg",
+    "coverId": 13022202
+  },
+  "48": {
+    "filename": "theRaven.jpg",
+    "coverId": 11692676
+  },
+  "49": {
+    "filename": "ariel.jpg",
+    "coverId": 13248887
+  },
+  "52": {
+    "filename": "iliad.jpg",
+    "coverId": 6835275
+  },
+  "53": {
+    "filename": "odyssey.jpg",
+    "coverId": 12718365
+  },
+  "54": {
+    "filename": "divineComedy.jpg",
+    "coverId": 13319558
+  },
+  "56": {
+    "filename": "sapiens.jpg",
+    "coverId": 9031603
+  },
+  "57": {
+    "filename": "gunsGermsSteel.jpg",
+    "coverId": 12863250
+  },
+  "59": {
+    "filename": "allQuiet.jpg",
+    "coverId": 8391164
+  },
+  "61": {
+    "filename": "otherBoleynGirl.jpg",
+    "coverId": 13191066
+  },
+  "62": {
+    "filename": "huckleberryFinn.jpg",
+    "coverId": 15201328
+  },
+  "63": {
+    "filename": "outsiders.jpg",
+    "coverId": 13440278
+  },
+  "65": {
+    "filename": "becoming.jpg",
+    "coverId": 13010931
+  },
+  "66": {
+    "filename": "greatGatsby.jpg",
+    "coverId": 8248053
+  },
+  "68": {
+    "filename": "oldManSea.jpg",
+    "coverId": 10880254
+  },
+  "69": {
+    "filename": "bellJar.jpg",
+    "coverId": 8181200
+  },
+  "74": {
+    "filename": "diaryYoungGirl.jpg",
+    "coverId": 13505259
+  },
+  "75": {
+    "filename": "wolfHall.jpg",
+    "coverId": 12710766
+  },
+  "76": {
+    "filename": "nameOfRose.jpg",
+    "coverId": 13009253
+  },
+  "78": {
+    "filename": "secretGarden.jpg",
+    "coverId": 999988
+  },
+  "79": {
+    "filename": "intoTheWild.jpg",
+    "coverId": 14608295
+  },
+  "81": {
+    "filename": "masterMargarita.jpg",
+    "coverId": 8485044
+  },
+  "82": {
+    "filename": "grapesWrath.jpg",
+    "coverId": 1020992
+  },
+  "86": {
+    "filename": "curiousIncident.jpg",
+    "coverId": 10634750
+  },
+  "87": {
+    "filename": "theGiver.jpg",
+    "coverId": 1026152
+  },
+  "88": {
+    "filename": "hateUGive.jpg",
+    "coverId": 8250022
+  },
+  "89": {
+    "filename": "lookingAlaska.jpg",
+    "coverId": 8985401
+  },
+  "90": {
+    "filename": "faultStars.jpg",
+    "coverId": 14429133
+  },
+  "93": {
+    "filename": "joyLuckClub.jpg",
+    "coverId": 1005575
+  },
+  "94": {
+    "filename": "separatePeace.jpg",
+    "coverId": 3215651
+  },
+  "95": {
+    "filename": "shadowWind.jpg",
+    "coverId": 15161017
+  },
+  "96": {
+    "filename": "kiteRunner.jpg",
+    "coverId": 7013575
+  },
+  "97": {
+    "filename": "thousandSuns.jpg",
+    "coverId": 14602632
+  },
+  "99": {
+    "filename": "tattooistAuschwitz.jpg",
+    "coverId": 14560365
+  },
+  "101": {
+    "filename": "redTent.jpg",
+    "coverId": 3192529
+  },
+  "102": {
+    "filename": "guernseySociety.jpg",
+    "coverId": 11405701
+  },
+  "105": {
+    "filename": "riseFallThirdReich.jpg",
+    "coverId": 10832594
+  },
+  "111": {
+    "filename": "romanovs.jpg",
+    "coverId": 10441633
+  },
+  "113": {
+    "filename": "kingLeopoldsGhost.jpg",
+    "coverId": 11872334
+  },
+  "116": {
+    "filename": "deepWork.jpg",
+    "coverId": 12886596
+  },
+  "119": {
+    "filename": "factfulness.jpg",
+    "coverId": 12942850
+  },
+  "120": {
+    "filename": "artThinkingClearly.jpg",
+    "coverId": 8390203
+  },
+  "122": {
+    "filename": "selfishGene.jpg",
+    "coverId": 13738090
+  },
+  "124": {
+    "filename": "bornCrime.jpg",
+    "coverId": 8117697
+  },
+  "125": {
+    "filename": "whenBreathAir.jpg",
+    "coverId": 8145828
+  },
+  "126": {
+    "filename": "divanHafez.jpg",
+    "coverId": 5819375
+  },
+  "131": {
+    "filename": "openlibrary_8315603.jpg",
+    "coverId": 15074577
+  },
+  "132": {
+    "filename": "openlibrary_6424160.jpg",
+    "coverId": 15094115
+  }
+}
