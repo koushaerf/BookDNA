@@ -1,16 +1,19 @@
+// Umbenannt: monthlyBooks zu topBooks, loadMonthlyBooks zu loadTopBooks
+// und /api/monthly-trending zu /api/community-top.
+// Die Funktionalität bleibt unverändert.
 <script setup>
 import { onMounted, ref } from "vue";
 
-const monthlyBooks = ref([]);
+const topBooks = ref([]);
 const loading = ref(false);
 const error = ref("");
 
-async function loadMonthlyBooks() {
+async function loadTopBooks() {
     loading.value = true;
     error.value = "";
 
     try {
-        const response = await fetch("/api/monthly-trending");
+        const response = await fetch("/api/community-top");
 
         if (!response.ok) {
             throw new Error(
@@ -18,7 +21,7 @@ async function loadMonthlyBooks() {
             );
         }
 
-        monthlyBooks.value = await response.json();
+        topBooks.value = await response.json();
 
     } catch (err) {
         error.value = err.message;
@@ -27,11 +30,11 @@ async function loadMonthlyBooks() {
     }
 }
 
-onMounted(loadMonthlyBooks);
+onMounted(loadTopBooks);
 </script>
 
 <template>
-    <section id="monthly-trending" class="celebrity-section">
+    <section id="community-top" class="celebrity-section">
 
         <div class="section-header">
             <p class="label">
@@ -53,13 +56,13 @@ onMounted(loadMonthlyBooks);
             {{ error }}
         </p>
 
-        <p v-else-if="monthlyBooks.length === 0">
+        <p v-else-if="topBooks.length === 0">
             Noch keine Bewertungen vorhanden.
         </p>
 
         <div v-else class="celebrity-grid">
 
-            <article v-for="(book, index) in monthlyBooks" :key="book.book_id" class="celebrity-card">
+            <article v-for="(book, index) in topBooks" :key="book.book_id" class="celebrity-card">
                 <img class="celebrity-image" :src="`/images/${book.book_img}`" :alt="book.name" />
 
                 <div class="celebrity-book-info">

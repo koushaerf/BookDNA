@@ -226,9 +226,9 @@ FROM reviews
 
 
 
-// Bücher im Trend - aktuelle und vergangene Monate
-
-app.get("/monthly-trending", function (req, res) {
+// Umbenannt: /monthly-trending zu /community-top.
+// Die Top 3 Bücher werden anhand der Nutzerbewertungen ermittelt.
+app.get("/community-top", function (req, res) {
 
     const sql = `
         SELECT

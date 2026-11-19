@@ -1,3 +1,4 @@
+ //Umbenannt: montly-trending zu community-top
 <template>
   <header class="navbar">
     <RouterLink to="/" class="logo">
@@ -13,8 +14,8 @@
       </button>
 
       <RouterLink to="/quiz">Quiz</RouterLink>
-
-      <a href="/#monthly-trending">Community Favorites</a>
+     
+      <a href="/#community-top">Community Favorites</a>
       <a href="/#about">Über uns</a>
     </nav>
 

@@ -1,7 +1,10 @@
+
+// Die Komponente zeigt jetzt die Top 3 Bücher anhand der Nutzerbewertungen.
 <script setup>
 import Navbar from "../components/Navbar.vue";
 import GenreList from "../components/GenreList.vue";
-import CelebrityPicks from "../components/CelebrityPicks.vue";
+// Umbenannt: CelebrityPicks.vue zu CommunityFavorites.vue.
+import CommunityFavorites from "../components/CommunityFavorites.vue";
 import AboutSection from "../components/AboutSection.vue";
 </script>
 <template>
@@ -55,7 +58,7 @@ import AboutSection from "../components/AboutSection.vue";
 
         <GenreList />
 
-        <CelebrityPicks />
+        <CommunityFavorites />
         <AboutSection />
     </main>
 </template>
