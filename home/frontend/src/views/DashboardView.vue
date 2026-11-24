@@ -75,9 +75,7 @@
                         @change="saveChallenge"
                     />
                     
-                    <p v-if="readerTitle" class="reader-title">
-                        {{ readerTitle }}
-                    </p>
+                   
 
                     <p>
                         {{ booksReadThisYear }} / {{ challengeGoal }}
@@ -103,7 +101,12 @@
 
                 <!-- RECHTE SEITE: BILD -->
                 <div class="challenge-image">
-                    <img src="/images/pooh.png" alt="Lesechallenge" />
+                    <img :src="readerImage" alt="Lesechallenge" />
+
+                     <div class="reader-badge">
+                        <span>Dein Leseabzeichen</span>
+                        <strong>{{ readerTitle }}</strong>
+                    </div>
                 </div>
 
             </div>
@@ -161,7 +164,7 @@
                     class="taste-item"
                 >
                     <div class="taste-title">
-                        <span>{{ item.category }}</span>
+                        <span>{{ getGenreName(item.category) }}</span>
                         <span>{{ item.percentage }}%</span>
                     </div>
 
@@ -316,6 +319,7 @@
 <script setup>
 import { ref, onMounted , computed } from "vue";
 import Navbar from "../components/Navbar.vue";
+import { getGenreName } from "../Utils/kategorieName.js"; // Importiere die Funktion getGenreName aus genreNames.js
 const selectedStatus = ref("planned");
 const showQuote = ref(false);
 const newQuote = ref("");
@@ -361,22 +365,33 @@ const readDate = ref(new Date().toLocaleDateString("en-CA"));
 const challengeYear = new Date().getFullYear();
 
 const challengeGoal = ref(null);
-// ist die Variable für den Titel des Lesers, die basierend auf dem Leseziel berechnet wird
-const readerTitle = computed(function () {
-    const goal = Number(challengeGoal.value);
-    // Überprüfen, ob das Leseziel gültig ist
-    if (!goal || goal < 1) {
-        return "";
-    }
+// ist die Variable für den Titel des Lesers, die basierend auf der Anzahl der gelesenen Bücher berechnet wird
+const readerTitle = computed(() => {
+    const count = booksReadThisYear.value;
 
-    if (goal <= 5) {
-        return "📖 Cozy Reader";
-    } else if (goal <= 10) {
-        return "✨ Book Explorer";
-    } else if (goal <= 20) {
-        return "🤓 Book Nerd";
+    if (count <= 5) {
+        return "📖 Einsteiger";
+    } else if (count <= 10) {
+        return "🐛 Bücherwurm";
+    } else if (count <= 20) {
+        return "🤓 Leseprofi";
     } else {
-        return "🏆 Book Legend";
+        return "🏆 Legende ";
+    }
+});
+
+// ist die Variable für das Bild des Lesers, die basierend auf der Anzahl der gelesenen Bücher berechnet wird
+const readerImage = computed(() => {
+    const count = booksReadThisYear.value;
+
+    if (count <= 5) {
+        return "/images/pooh.png";
+    } else if (count <= 10) {
+        return "/images/explorer.png";
+    } else if (count <= 20) {
+        return "/images/nerd.png";
+    } else {
+        return "/images/legend.png";
     }
 });
 
@@ -498,6 +513,8 @@ async function addBook() {
         await loadQuotes();// um die Zitate vom Server zu laden und in der quotes Variable zu speichern
         selectedBook.value = "";
         selectedStatus.value = "planned";
+
+        await loadTaste(); // um den Lesegeschmack des Benutzers vom Server zu laden und in der taste Variable zu speichern
 
     } catch (err) {
         console.error(err);
@@ -853,6 +870,11 @@ onMounted(initializeDashboard);
 .challenge-info {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: #694f44;
+    font-size: 18px;
 }
 
 .challenge-image {
@@ -860,6 +882,8 @@ onMounted(initializeDashboard);
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .challenge-image img {
@@ -1259,4 +1283,30 @@ onMounted(initializeDashboard);
     color: #5c4b42;
 }
 
+/* LESEABZEICHEN */
+
+.reader-badge {
+    background-color: #ead7cb;
+    border: 2px solid #c07854;
+    border-radius: 18px;
+    padding: 14px 30px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(105, 79, 68, 0.15);
+}
+/* LESEABZEICHEN TEXT */
+.reader-badge span {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #694f44;
+    margin-bottom: 6px;
+}
+
+.reader-badge strong {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+    color: #88571a;
+}
 </style>
