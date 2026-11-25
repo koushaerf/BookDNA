@@ -148,6 +148,38 @@ async function saveReview() {
     }
 }
 
+// Buch zur Leseliste hinzufügen
+async function addToReadingList() {
+    try {
+        
+        const response = await fetch("/api/dashboard/books", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "same-origin",
+            body: JSON.stringify({
+                book_id: Number(route.params.id),
+                status: "planned",
+                read_at: null
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.error || "Fehler beim Hinzufügen.");
+            return;
+        }
+
+        alert("Das Buch wurde deiner Leseliste hinzugefügt!");
+
+    } catch (err) {
+        console.error(err);
+        alert("Verbindung zum Server fehlgeschlagen.");
+    }
+}
+
 
 
 //Sterne werden null
@@ -210,6 +242,8 @@ onMounted(checkLogin); //wenn die Seite geladen wird, checken ob angemeldet ist
                 }" class="btn-primary">
                     Mehr Bücher aus {{ book.kategorie }}
                 </RouterLink>
+                <!-- Button für Leseliste hinzufügen, nur wenn angemeldet -->
+                <button v-if="currentUser" type="button" class="btn-primary reading-list-button" @click="addToReadingList" >+ Zur Leseliste hinzufügen</button>
             </div>
 
 

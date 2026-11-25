@@ -128,6 +128,14 @@ body {
     border-radius: 8px;
 }
 
+.reading-list-button {
+    font-family: inherit;
+    font-size: 16px;
+    border: none;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
 .btn-secondary {
     display: inline-block;
 
